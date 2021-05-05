@@ -2,6 +2,40 @@
 // use of new keyword 
 #include<iostream> 
 using namespace std; 
+
+class string
+{
+    public:
+
+	string(char* aStr)
+	{
+		str = new char[ strlen(aStr) + 1 ];
+		strcpy (str,aStr);
+	}
+
+	string(string &strObj)
+	{
+                str = new char[ strObj.str ];
+                strcpy( str, strObj.str );
+	}
+
+	string &string::operator=(const string &s)
+	{
+                string temp( s );
+                std::swap( temp.str, str );
+                return *this;
+	}
+
+	// destructor
+	~string() 
+	{
+		delete[] str;
+	}
+
+    private:
+	char* str;
+};
+
 class car 
 { 
 	string name; 
