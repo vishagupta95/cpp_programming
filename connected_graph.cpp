@@ -13,114 +13,49 @@
 ouput
 1
 
-
+Connected blocks traversed by dfs or bfs mark
+If all points of a connected block have degree 2, then it is a ring
 
 
 */
 
-#include<algorithm>
-#include<cmath>
-#include<cstdio>
-#include<cstdlib>
-#include<cstring>
-#include<functional>
-#include<iomanip>
-#include<iostream>
-#include<map>
-#include<numeric>
-#include<queue>
-#include<set>
-#include<stack>
-#include<string>
-#include<utility>
-#include<vector>
-
-typedef long long int ll;
-typedef unsigned long long int ull;
-
-#define dbg printf("in\n")
-#define nl printf("\n");
-#define N 200100
-#define pp pair<ll,ll>
-
-#define sf(n) scanf("%d", &n)
-#define sff(n,m) scanf("%d%d",&n,&m)
-#define sfl(n) scanf("%I64d", &n)
-#define sffl(n,m) scanf("%I64d%I64d",&n,&m)
-
-#define pf(n) printf("%d\n",n)
-#define pfl(n) printf("%I64d ",n)
-#define pfs(s) printf("%s\n",s)
-
-#define pb push_back
-
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <vector>
 using namespace std;
+#define SIS std::ios::sync_with_stdio(false),cin.tie(0),cout.tie(0)
+#define endl '\n'
+const int MAXN = 2e5+5;
+vector<int> v[MAXN];
+bool vis[MAXN],flag;
 
-bool vis[N];
-vector<int> adj[N];
-stack<int> st;
-
-void dfs(int s)
+void dfs(int x)
 {
-    vis[s]=1;
-    for(int e : adj[s])
-    {
-        if(!vis[e])
-            dfs(e);
-    }
-
-    st.push(s);
+    if(vis[x]) return;
+    vis[x]=true;
+    if(v[x].size()!=2) flag=true;
+    for(int y:v[x]) dfs(y);
 }
 
 int main()
 {
-    //freopen("in.txt", "r", stdin);
-
-    int i,j,k;
-    int n,m;
-    int u,v;
-
-    sff(n,m);
-    for(i=0;i<m;i++)
+    SIS;
+    int n,m,x,y,ans=0;
+    cin >> n >> m;
+    for(int i=0;i<m;i++)
     {
-        sff(u,v);
-
-        adj[u].pb(v);
-        adj[v].pb(u);
+        cin >> x >> y;
+        v[x].push_back(y);
+        v[y].push_back(x);
     }
-
-    int cnt=0;
-    for(i=1;i<=n;i++)
+    for(int i=1;i<=n;i++)
     {
-        if(!vis[i])
-            dfs(i);
-
-        k=1;
-        if(st.size()>2)
-        {
-            //check if all the elements have two neighbours
-            while(!st.empty())
-            {
-                if(adj[st.top()].size()!=2){
-                    k=0;
-                    break;
-                }
-
-                st.pop();
-            }
-
-            if(k)
-                cnt++;
-        }
-
-        while(!st.empty())
-            st.pop();
+        if(vis[i]) continue;
+        flag=false;
+        dfs(i);
+        if(!flag) ans++;
     }
-
-    pf(cnt);
-
+    cout << ans << endl;
     return 0;
 }
-
-
-
