@@ -13,9 +13,9 @@ using namespace std;
 
 void showdata(deque<int> deque1)
 {
-  deque<int>::iterator iterator_1;
-  for (iterator_1 = deque1.begin(); iterator_1 != deque1.end(); ++iterator_1)
-    cout << "\t" << *iterator_1;
+  deque<int>::iterator it;
+  for (it = deque1.begin(); it != deque1.end(); ++it)
+    cout << "\t" << *it;
   cout << "\n";
 }
 

@@ -1,0 +1,512 @@
+If a tree has n nodes, then each node is visited only once in inorder traversal and hence the complexity is O(n).
+
+space complexity 
+-----------------
+
+The space Complexity of an algorithm is the total space taken by the algorithm with respect to the
+input size. Space complexity includes both Auxiliary space and space used by input.
+Merge Sort uses O(n) auxiliary space, Insertion sort, and Heap Sort use O(1) auxiliary space. 
+It’s necessary to mention that space complexity depends on a variety of things such as the 
+programming language, the compiler, or even the machine running the algorithm
+
+int square(int a)
+{
+	return a*a; // constant space complexity
+}
+
+int sum(int A[ ], int n)
+{
+   int sum = 0, i;
+   for(i = 0; i < n; i++)
+      sum = sum + A[i];a // Linear Space Complexity.
+   return sum;
+}
+
+
+consistent hashing vs mod hashing
+--------------------------------
+Option 1: Mod the hash value  (remender is output ) by the number of machines.
+
+In the classic hashing method, we always assume that The number of memory locations is
+known, and This number never changes.A small change in the cluster size could result in a 
+reshuffle of all the data in the cluster. As the cluster size grows, this becomes unsustainable
+because the amount of work required for each hash change grows linearly with cluster size.
+
+This is where the concept of consistent hashing comes in.
+
+It represents the resource requestors (which I shall refer to as ‘requests’) and the server nodes 
+in a virtual ring structure known as a hashing.
+The number of locations is no longer fixed, but the ring is considered to have an infinite number 
+of points, and the server nodes can be placed at random locations on this ring. (Of course, 
+choosing this random number again can be done using a hash function, but the second step of 
+dividing it by the number of available locations is skipped as it is no longer a finite number).
+The requests, that is, the users, computers or serverless programs, which are analogous to keys 
+in the classic hashing approach, are also placed on the same ring using the same hash function.
+
+How is the decision about which request will be served by which server node made? If we 
+assume the ring is ordered so that clockwise traversal of the ring corresponds to 
+increasing order of location addresses, each request can be served by the server node 
+that first appears in this clockwise traversal.
+
+But that’s it. It’s just this one range, corresponding to the failed server node, that needed to be
+ re-assigned, while the rest of the hashring and request-node assignments still remain 
+unaffected.
+
+Contrast this with the classic hashing technique in which a change in size of the hash table 
+effectively disturbs ALL of the mappings. Thanks to consistent hashing, only a portion (relative to the ring distribution factor) of the requests will be affected by a given ring change. (A ring change occurs due to an addition or removal of a node causing some of the request-node mappings to change.)
+
+
+
+STL
+---------
+
+
+The Standard Template Library (STL) is a set of C++ template classes to provide 
+common programming data structures and functions such as lists, stacks, arrays, etc. 
+
+container classes store objects and data and it has methods for accessing its 
+elements. 
+
+In particular, every type that is a model of Container has an associated iterator
+type .iterators is like a pointer and provide a means for accessing data stored in 
+container classes such a vector, map, list, etc 
+
+
+
+The STL SequenceContainer types are:
+--------------------------------------
+
+Sequence containers are used for data structures that store objects of the same type in a linear manner.
+------------------------------------------------------------------------------------------------------
+
+1>array represents a static contiguous array,(class template)
+2>vector represents a dynamic contiguous array ,support random access ,push_back() ,(class template)
+3>forward_list represents a singly-linked list
+4>list represents a doubly-linked list
+5>dequeqe represents a double-ended queue, where elements can be added to the front or back of the queue
+
+
+Associative containers provide sorted data structures that provide a fast lookup (O(log n) time) using keys.
+------------------------------------------------------------------------------------------------------
+The STL AssociativeContainer types are can be divided in two ways: containers 
+which require unique keys, and those which allow multiple entries using the same key.
+
+Keys are unique
+set is a collection of unique keys, sorted by keys
+map is a collection of key-value pairs, sorted by keys
+set and map are typically implemented using red-black trees
+Multiple entries for the same key are permitted
+multiset is a collection of keys, sorted by keys
+multimap is a collection of key-value pairs, sorted by keys
+
+
+Unordered Associative Containers
+------------------------------------------------------------------------------------------------------
+Unordered associative containers provide unsorted data structures that can be accessed using a hash. Access times are
+ O(n) in the worst-case, but much faster than linear time for most operations.
+
+
+Keys are unique
+unordered set is a collection of keys, hashed by keys
+unordered_map is a collection of key-value pairs, hashed by keys
+Multiple entires for the same key are permitted
+unordered_multiset is a collection of keys, hashed by keys
+unordered_multimap is a collection of key-value pairs, hashed by keys
+
+The standard container adapters are:
+---------------------------------------
+stack provides an LIFO data structure
+queue provides a FIFO data structure
+
+Space Complexity
+---------------------------------------
+O(1) – constant complexity – takes the same amount of space regardless of the input
+if you have a traversal algorithm for traversing the list which allocate a single pointer to do so, 
+the traversal algorithms is considered to be of O(1) space complexity. Additionally, let's say that 
+traversal algorithm needs not 1 but 1000 pointers, the space complexity is still considered to be O(1).
+
+Sorting algorithem
+--------------------------------------
+Algorithm	Time Complexity
+ 	        Best	        Average	         Worst
+Selection Sort	O(n^2)	        (n^2)	         O(n^2)
+Bubble Sort	O(n)	        (n^2)	         O(n^2)
+Insertion Sort	O(n)      	(n^2)	         O(n^2)
+Heap Sort	O(n log(n))	(n log(n))	O(n log(n))
+Quick Sort	O(n log(n))	(n log(n))	O(n^2)
+Merge Sort	D(n log(n))	(n log(n))	O(n log(n))
+
+
+Analysis of time and space complexity of C++ STL containers
+-------------------------------------------------
+
+1> priority_queue<data_type, vector<data_type>, greater<data_type>> Q
+
+Function   Time Complexity	Space Complexity
+Q.top() 	    O(1)                    O(1)
+Q.push()            O(log n)                0(1)
+Q.pop()	            O(log n)                O(1)
+Q.empty()           O(1)                    O(1)
+
+
+2> map<data_type, data_type> and  set<data_type> S
+The map <int, int> M is the implementation of self-balancing Red-Black Trees.
+The unordered_map<int, int> M is the implementation of Hash Table which makes
+
+Internally unordered_map is implemented using Hash Table, the key provided to map are hashed into indices
+ of a hash table that is why the performance of data structure depends on hash function a lot but on an average, 
+the cost of search, insert and delete from the hash table is O(1). 
+Note: In the worst case, its time complexity can go from O(1) to O(n2), especially for big prime numbers
+
+
+Function   Time Complexity	Space Complexity   type
+M.find(x       O(log n)	        O(1)                Ordered Map :self-balancing Red-Black Trees.
+M.insert       O(log n)         O(1)
+M.erase(x)     O(log n)         O(1)
+
+
+3> stack and queue
+Function	Time Complexity	Space Complexity
+s.top( )	O(1)  O(1)
+s.pop( )	O(1)  O(1)
+s.empty( ) 	O(1) O(1)
+s.push(x )	O(1) O(1)
+
+
+
+vector
+Function	Time Complexity
+sort            nlogn
+pop,pushsize 
+and clean       0(1)
+cleaa          0((n)
+
+
+Data Model:
+---------------------------------------
+The 32-bit Solaris C language data model, called ILP32, defines int, long, and pointers as 32 bits, short as 16 bits, and char as 8 bits. 
+The C data type model chosen for the 64-bit operating system is LP64. This data model defines long and pointers as 64 bits, 
+int as 32 bits, short as 16 bits, and char as 8 bits.
+LP32 means that long and pointer are 32 bits,
+LP64 means that long and pointer are 64 bits,
+Common 32-bit environments generally only involve the "ILP32" data model; 64-bit environments use different data models. 
+All 64-bit Unix-like platforms today use the LP64 data model, while 64-bit Windows uses the LLP64 data model.
+LLP64 means that long long and pointer are 64-bit.
+
+The size of the int type is 4 bytes (32 bits). The minimal value is -2 147 483 648, the maximal one is 2 147 483 647.
+
+
+
+C plus Plus
+---------------------------------------
+
+A class is an expanded concept of a data structure: instead of holding only data, it can hold  both data and functions.
+
+7 primitive data types in C++?
+In C++, there are about seven primitive data types. These data types are : short, int, long, char, float, double and few of their variants.
+
+An object is a class variable or an "instance" of a class . 
+
+Object Oriented Programming(OOP)  is a design philosophy where program is divided into parts called objects.
+Object Oriented Programming(OOP) employs the bottom-up programming approach.  
+In Procedure oriented programming (POP), program is divided into small functions POP follows Top-Down approach
+
+The only difference between a struct and class in C++ is the default accessibility of member variables and methods. In a 
+struct they are public; in a class they are private.
+
+Polymorphism : more than one function with same name and different working,In static polymorphism(function overloading , templates ,default arguments and 
+operator Overloading) memory will be allocated at compile time. In run time polymorphism  (Virtual function )memory will be allocated at runtime. 
+
+Data Abstraction : hide inner details by making class members private
+
+Encapsulation : wrapping data members and member  functions in a single unit called class. Data is only accessible through the  object of the class.
+ 
+Inheritance : access the properties and features of base class into derived class.
+
+1>A derived class with only one base class is called single inheritance.
+2>A derived class with multiple base class is called multiple inheritance.
+3>A derived class with two base classes and these two base classes have one common 
+base class is called multipath inheritance.
+
+virtual base class :In multipath inheritance. In CHILD class have two copies of Base class. This problem is 
+also called as DIAMOND Problem. This can be solved by declaring the common base class as a virtual base class 
+Now only one copy of the members of grandparent will be inherited into child
+
+
+C++ storage classes?
+
+Automatic variable ,stack segment, initial value garbage
+External  variable ,data segment, initial value 0
+static  variable ,data segment, initial value 0
+register  variable ,data segment, initial value garbage
+
+What are storage qualifiers in C++ ?  
+Const ,volatile
+
+iostream :is used to access the input output built in functions of the language same as stdio in c
+
+
+Using Namespace  std
+C++ has a standard library that contains common functionality for building your 
+applications like  such as cin,cout,string or vector, algorithms. Import the entirety of the 
+std namespace into the current namespace of program to avoid duplicates function  
+without having to  prefix std:: before each of these functions.
+
+
+Protected and private members
+Protected access modifier is similar private access modifiers, the difference is that 
+but they can be accessed by any subclass(derived class) of that class.
+
+Friend function
+- A friend function of a class is defined outside that class' scope but it has the right 
+to access all private and protected members of the class ...
+
+Constructor 
+A constructor is a member function with the same name as its class.  A constructor is 
+different from normal functions in following ways: Constructors don’t have return type. 
+Constructor creates an object and initializes it. It also creates vtable for virtual 
+functions. 
+
+Default Constructor
+Constructor with no arguments or all the arguments has default values. 
+
+
+copy constructor 
+A copy constructor is a member function which initializes an object using 
+another object of the same class.  
+
+Point p1(10); // Normal constructor is called here . Shallow copy
+Point p2(p1); // Copy constructor is called here . Shallow copy
+Point p2 = p1; // Copy constructor is called here . Shallow copy
+
+Copy constructor and assignment operator, are the two ways to initialize one object 
+using another object. The fundamental difference between the copy constructor and 
+assignment operator is that the copy constructor allocates separate memory to both
+the objects, i.e. the newly created target object and the source object. 
+
+Move constructor
+A move constructor allows the resources owned by an rvalue object to be moved into an lvalue without creating its copy. An rvalue 
+is an expression that does not have any memory address, and an lvalue is an expression with a memory address
+
+rvalue (real value , right value) may only appear as part of a right hand side expression.
+lvalue (label value, left value) may appear on either side of an expression.
+An lvalue can become an rvalue, but an rvalue cannot become an lvalue.
+
+
+Constants, being read-only , are always rvalues.
+int x =  5;  //  x is lvalue,  5 is rvalue.
+int x =  y;  // x is lvalue, y on the right is an rvalue,   despite it being a variable. 
+             
+int get_value( int * p);  // function returns an rvalue 
+int x =  get_value(&y);  // getvalue is an rvalue expression  because it returns an immediate value 
+
+
+
+The assignment operator allocates the same memory location to the newly
+ created target object as well as the source object.
+
+1.	Default copy constructor does only shallow copy.
+2.	Deep copy is possible only with user defined copy constructor.
+
+
+Destructor is a member function which destructs or deletes an object. A destructor 
+function is called automatically when the object goes out of scope: the function ends, the
+ program ends, a block containing local variables ends, a delete operator is called 
+Destructors have same name as the class preceded by a tilde (~),Destructors don’t take
+ any argument and don’t return anything
+
+a destructor cannot be overloaded, and it has the only form without the  parameters.
+
+Virtual function
+A virtual function is a member function which is declared with a virtual keyword 
+ In a  base class and is re-defined by a derived class. When you point to a derived class 
+object using a pointer to the base class, you  can call a virtual function for that 
+object and execute the derived class’s version 
+base* bptr; 
+derived d; 
+bptr = &d; 
+
+Abstract class
+sometimes implementation of all function cannot be provided in a base class because 
+we don’t know the implementation. Such base class is called abstract base class . An 
+abstract class is a  class in C++ which have at least one pure virtual function. A pure 
+virtual function is declared by assigning 0 in declaration.  
+ 
+
+vtable
+
+Virtual functions are implemented using a table of function pointers, called the 
+vtable. There is one entry in the table per virtual function in the class. This table is 
+created by the constructor of the class. When a derived class is constructed, its base 
+class is constructed which creates the vtable. If the derived class overrides any of the
+base classes virtual functions, those entries in the vtable are overwritten by the 
+derived class constructor. This is why you should never call virtual functions from a
+constructor: because the vtable entries for the object may not have been set up by
+the derived class constructor yet, so you might end up calling base class
+implementations of those virtual functions
+
+Why there are no virtual constructors in C++? 
+Constructor cannot be virtual because when constructor of a class is 
+executed there is no vtable in the memory means no virtual pointer defined yet. 
+
+Virtual destructor :you destroy an object through a pointer to a base class, and the 
+base-class destructor is not virtual, the derived-class destructors are 
+not executed, and the destruction might not be complete.
+ So the base class destructor should be virtual to execute the destructors from derived 
+to base class order.The insertion (<<) operator, 
+
+Static data member 
+There is only one copy of the static data member in the class,
+ even if there are many class objects. ... The static data member is always 
+initialized to zero when the first-class object is created.
+
+Static member function 
+By declaring a function member as static, you make it independent of any 
+particular object of the class. A static member function can be called even 
+if no objects of the class exist and the static functions are accessed using 
+only the class name and the scope resolution operator ::.
+
+Question: Can we have a recursive inline function in C++?
+Answer: Even though it is possible to call an inline function from within itself in C++, 
+the compiler may not generate the inline code. This is so because the compiler won’t be 
+able to  determine the depth of the recursion at the compile time.
+
+Question: Explain ‘this’ pointer?
+Answer: The ‘this’ pointer is a constant pointer and it holds the memory address of the 
+current object. It passes as a hidden argument to all the nonstatic member function calls. 
+Also, it is available as a local variable within the body of all the nonstatic functions.
+As static member functions can be called even without any object, i.e. with the 
+class name, the ‘this’ pointer is not available for them
+
+
+Operator overloading 
+which an operator is overloaded to give user defined meaning to it. ...
+ For example '+' operator can be overloaded to perform addition on
+ various data types, like for Integer, String(concatenation) etc.
+Exception handling in C++	Exception handling in C++ consist of three keywords: try, throw and catch:
+
+const char* is a mutable pointer to an immutable character/string. You cannot change the
+contents of the location(s) this pointer points to
+
+ 
+Copy constructor
+And operator overloading	 
+
+
+ 
+t1 = t2 operator over loading
+New /malloc	1.	For a dynamically allocated object, constructor is invoked by new operator 
+Example geeks obj = new geeks()
+geeks obj = new geeks[4]; 4 objects created , to free used  
+ delete []  geeks
+2.	New doesn’t need type casting, Malloc requires typecasting 
+3.	New is a operator it can be overloaded, Malloc is a  function cannot be overloaded
+4.	New does not require to explicitly specifying the quantity of memory allocated,
+5.	If the new operator fails to allocate the memory, it throws an exception
+that must be handled by the code else the program will terminate. 
+6.	new is related to delete , malloc is related to free
+Once the memory is allocated using a new operator, it can’t be resized
+
+
+template	Templates are expanded at compiler time. This is like macros. The difference is, compiler
+ Does  type check before template expansion.  The simple idea is to pass
+data type as a parameter so that we don’t need to write the same code for different data 
+types. 
+For example, a software company may need sort() for different data types. 
+
+
+References are less powerful than pointers 
+1) Once a reference is created, it cannot be later made to reference another object; 
+2) References cannot be NULL.
+3) A reference must be initialized when declared.
+
+What do you mean by Stack unwinding?
+It is a process during exception handling when the destructor is called for all local objects
+between the place where the exception was thrown and where it is caught.
+
+If B is a shallow copy of A . B and A point to the same memory location. If B is a 
+deep copy of A, B and A point to different memory locations
+
+
+What is inline function?
+The inline, substitution occurs only at the compiler’s discretion. Can inline functions cannot 
+have recursion?
+
+Overriding a method means that replacing a method functionality in derived class. 
+
+Explain the scope resolution operator?
+It permits a program to reference an identifier in the global scope that has been 
+hidden by another identifier with the same name in the local scope.
+
+
+Manipulators are the functions which can be used in conjunction with the insertion 
+(<<) and extraction (>>) operators on an object. Examples are endl and setw.
+
+
+Smart pointer	In C++ 11, it introduces smart pointers .A smart pointer is a container class that wraps
+ a 'raw' (or 'bare') C++ pointer, to manage the lifetime of the object being pointed to. 
+Smart pointers should be preferred over raw pointers. With raw pointers, the programmer has
+ to explicitly destroy the object when it is no longer useful.
+
+ 
+
+Lambda Function	C++ 11 introduced lambda expression to allow us write an inline 
+function which can be used for short snippets of code that are not 
+going to be reuse and not worth naming. In its simplest form 
+lambda expression can be defined as follows:
+
+	
+	
+	
+
+Design patterns
+---------
+
+Design patterns are documented tried and tested solutions for recurring problems in a 
+given context.
+
+The singleton pattern is used to limit creation of a class to only one object. Examples
+Including  caches, thread  pools, and registries.
+A log file is the big one. You don't want to just abandon a single log file. You want to 
+flush, sync and close it properly. This is an example of a single shared resource 
+that has to be manage
+
+You can create a singleton class by making its constructor as private, so that 
+you can restrict the creation of the object. Provide a static method to get instance 
+of the object, wherein you can handle the object creation inside the class only.
+
+Major disadvantages
+1. an inhibiting feature when more than one instance is required. 
+2. Difficult to make  thread-safe.
+3. Global access to singleton object is a bad design practice.
+4. Singleton does not support inheritance of the class.
+5 make unit testing very hard
+
+ Factory Method
+
+Factory pattern says that object creation will be handled by subclass class 
+using the input type. We are building an application that needs to support two different 
+databases,  Oracle and SQL Server. 
+Whenever we insert a data into a database, we create a SQL Server– specific connection
+or an Oracle server– specific connection and  then we can proceed. If we put these codes into
+ if-else (or switch) statements,  we may need to repeat a lot of code. 
+
+This kind of code is not easily maintainable because whenever we need to support a new type of
+ connection, we need to reopen code and place the modifications.  A factory method pattern 
+focuses on solving similar problems in application development.
+
+ OBSERVER
+
+The Observer pattern is used to create events, event notification,
+and event handling. This is useful for events of course but also
+GUI handlers. Also known as the publisher / subscriber model.
+• The observer is the event client, which implements a handler.
+The clients must register with the event server.
+• Subject is the event source. This is the event server
+responsible for notifying the client objects of events.
+Important: there could be no observers (clients) to notify
+. For example, a news agency can notify channels when it receives news.
+
+Decorator pattern 
+allows a user to add new functionality to an existing object without altering its structure. This type of design pattern comes 
+under structural pattern as this pattern acts as a wrapper to existing class.

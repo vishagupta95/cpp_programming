@@ -1,43 +1,50 @@
 #include <iostream>
-#v2
+/*
+Singleton design pattern is a software design principle that is used to restrict the instantiation of a class to one object. 
+This is useful when exactly one object is needed to coordinate actions across the system. For example, if you are using a logger, i
+that writes logs to a file, you can use a singleton class to create such a logger. You can create a singleton class using the following code 
 
-class Singleton
-{
-    private:
-        /* Here will be the instance stored. */
-        static Singleton* instance;
+The instance is stored as a private static variable.
+Declaring all constructors of the class to be private.
+Providing a public static method that returns a reference to the instance.
 
-        /* Private constructor to prevent instancing. */
-        Singleton();
+*/
 
-    public:
-        /* Static access method. */
-        static Singleton* getInstance();
+
+using namespace std;
+
+class Singleton {
+   static Singleton *instance;
+   int data;
+ 
+   // Private constructor so that no objects can be created.
+   Singleton() {
+      data = 0;
+   }
+
+   public:
+   static Singleton *getInstance() {
+      if (!instance)
+      instance = new Singleton;
+      return instance;
+   }
+
+   int getData() {
+      return this -> data;
+   }
+
+   void setData(int data) {
+      this -> data = data;
+   }
 };
 
-/* Null, because instance will be initialized on demand. */
-Singleton* Singleton::instance = 0;
+//Initialize pointer to zero so that it can be initialized in first call to getInstance
+Singleton *Singleton::instance = 0;
 
-Singleton* Singleton::getInstance()
-{
-    if (instance == 0)
-    {
-        instance = new Singleton();
-    }
-
-    return instance;
-}
-
-Singleton::Singleton()
-{}
-
-int main()
-{
-    //new Singleton(); // Won't work
-    Singleton* s = Singleton::getInstance(); // Ok
-    Singleton* r = Singleton::getInstance();
-
-    /* The addresses will be the same. */
-    std::cout << s << std::endl;
-    std::cout << r << std::endl;
+int main(){
+   Singleton *s = s->getInstance();
+   cout << s->getData() << endl;
+   s->setData(100);
+   cout << s->getData() << endl;
+   return 0;
 }
